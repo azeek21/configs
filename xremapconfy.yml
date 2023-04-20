@@ -1,0 +1,24 @@
+modmap:
+  - name: Global
+    remap:
+      Ctrl_L: Super_L
+      Alt_L: Ctrl_L
+      Super_L: Alt_L
+keymap:
+  - name: Emacs binding
+    remap:
+      Alt_R-e: up
+      Alt_R-d: down
+      Alt_R-s: left
+      Alt_R-f: right
+      Alt_R-w: Home
+      Alt_R-r: End
+      Alt_R-g: Backspace
+      Alt_R-q: PageUp
+      Alt_R-a: PageDown
+      Alt_R-k: PlayPause
+      Alt_R-j: PreviousSong
+      Alt_R-l: NextSong
+      Alt_R-z: Back
+      Alt_R-x: Forward
+      Alt_R-h: Delete
