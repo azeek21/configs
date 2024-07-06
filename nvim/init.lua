@@ -6,6 +6,7 @@ vim.g.maplocalleader = ' '
 vim.opt.wrap = false
 -- Set to true if you have a Nerd Font installed and selected in the terminal
 vim.g.have_nerd_font = true
+vim.filetype.add { extension = { templ = 'templ' } }
 
 -- [[ Setting options ]]
 -- See `:help vim.opt`
@@ -470,6 +471,22 @@ require('lazy').setup({
         clangd = {},
         gopls = {
           usePlaceholder = true,
+          capabilities = capabilities,
+        },
+        htmx = {
+          capabilities = capabilities,
+          filetypes = { 'html', 'templ' },
+        },
+        html = {
+          filetypes = { 'html', 'templ' },
+        },
+        templ = {
+          default_config = {
+            cmd = { 'templ', 'lsp' },
+            filetypes = { 'templ' },
+            settings = {},
+            capabilities = capabilities,
+          },
         },
         -- pyright = {},
         -- rust_analyzer = {},
@@ -479,7 +496,12 @@ require('lazy').setup({
         --    https://github.com/pmizio/typescript-tools.nvim
         --
         -- But for many setups, the LSP (`tsserver`) will work just fine
+        --
         tsserver = {},
+        tailwindcss = {
+          filetypes = { 'templ', 'html', 'javascript', 'typescript', 'react' },
+          init_options = { userLanguages = { temp = 'html' } },
+        },
         --
 
         lua_ls = {
@@ -511,6 +533,10 @@ require('lazy').setup({
       local ensure_installed = vim.tbl_keys(servers or {})
       vim.list_extend(ensure_installed, {
         'stylua', -- Used to format Lua code
+        'gopls',
+        'htmx',
+        'tailwindcss',
+        'templ',
       })
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
@@ -556,6 +582,7 @@ require('lazy').setup({
       end,
       formatters_by_ft = {
         lua = { 'stylua' },
+        templ = { 'templ' },
         -- Conform can also run multiple formatters sequentially
         -- python = { "isort", "black" },
         --
@@ -572,6 +599,10 @@ require('lazy').setup({
     dependencies = {
       -- Snippet Engine & its associated nvim-cmp source
       {
+        'roobert/tailwindcss-colorizer-cmp.nvim',
+        config = true,
+      },
+      {
         'L3MON4D3/LuaSnip',
         build = (function()
           -- Build Step is needed for regex support in snippets.
@@ -586,12 +617,12 @@ require('lazy').setup({
           -- `friendly-snippets` contains a variety of premade snippets.
           --    See the README about individual language/framework/plugin snippets:
           --    https://github.com/rafamadriz/friendly-snippets
-          -- {
-          --   'rafamadriz/friendly-snippets',
-          --   config = function()
-          --     require('luasnip.loaders.from_vscode').lazy_load()
-          --   end,
-          -- },
+          {
+            'rafamadriz/friendly-snippets',
+            config = function()
+              require('luasnip.loaders.from_vscode').lazy_load()
+            end,
+          },
         },
       },
       'saadparwaiz1/cmp_luasnip',
@@ -731,7 +762,7 @@ require('lazy').setup({
     'nvim-treesitter/nvim-treesitter',
     build = ':TSUpdate',
     opts = {
-      ensure_installed = { 'bash', 'c', 'html', 'lua', 'luadoc', 'markdown', 'vim', 'vimdoc' },
+      ensure_installed = { 'bash', 'c', 'html', 'lua', 'luadoc', 'markdown', 'vim', 'vimdoc', 'templ' },
       -- Autoinstall languages that are not installed
       auto_install = true,
       highlight = {
@@ -786,6 +817,23 @@ require('lazy').setup({
       { '<c-\\>', '<cmd><C-U>TmuxNavigatePrevious<cr>' },
     },
   },
+  {
+    'theprimeagen/htmx-lsp',
+  },
+  {
+    'NvChad/nvim-colorizer.lua',
+    opts = {
+      user_default_options = {
+        tailwind = true,
+      },
+    },
+  },
+  --  {
+  --    -- tailwind-tools.lua
+  --    'luckasRanarison/tailwind-tools.nvim',
+  --    dependencies = { 'nvim-treesitter/nvim-treesitter' },
+  --    opts = {}, -- your configuration
+  --  },
 
   -- The following two comments only work if you have downloaded the kickstart repo, not just copy pasted the
   -- init.lua. If you want these files, they are in the repository, so you can just download them and
