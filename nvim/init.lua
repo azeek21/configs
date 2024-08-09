@@ -21,15 +21,6 @@ vim.opt.relativenumber = true
 -- Enable mouse mode, can be useful for resizing splits for example!
 vim.opt.mouse = 'a'
 
-vim.diagnostic.config {
-  virtual_text = false,
-  float = {
-    header = false,
-    border = 'rounded',
-    focusable = true,
-  },
-}
-
 -- Don't show the mode, since it's already in the status line
 vim.opt.showmode = false
 
@@ -74,6 +65,24 @@ vim.opt.cursorline = true
 
 -- Minimal number of screen lines to keep above and below the cursor.
 vim.opt.scrolloff = 15
+
+local _border = 'rounded'
+vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(vim.lsp.handlers.hover, {
+  border = _border,
+})
+
+vim.lsp.handlers['textDocument/signatureHelp'] = vim.lsp.with(vim.lsp.handlers.signature_help, {
+  border = _border,
+})
+
+vim.diagnostic.config {
+  float = { border = _border },
+  virtual_text = false, -- Disables inline virtual text
+  signs = true, -- Enables signs in the sign column
+  underline = false, -- Disables underlining of text
+  update_in_insert = false, -- Avoid updates while typing
+  severity_sort = true, -- Sorts messages by severity
+}
 
 -- [[ Basic Keymaps ]]
 --  See `:help vim.keymap.set()`
@@ -377,6 +386,7 @@ require('lazy').setup({
       --
       -- If you're wondering about lsp vs treesitter, you can check out the wonderfully
       -- and elegantly composed help section, `:help lsp-vs-treesitter`
+      -- o
 
       --  This function gets run when an LSP attaches to a particular buffer.
       --    That is to say, every time a new file is opened that is associated with
@@ -654,6 +664,10 @@ require('lazy').setup({
       luasnip.config.setup {}
 
       cmp.setup {
+        window = {
+          completion = cmp.config.window.bordered(),
+          documentation = cmp.config.window.bordered(),
+        },
         snippet = {
           expand = function(args)
             luasnip.lsp_expand(args.body)
