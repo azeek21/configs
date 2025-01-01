@@ -77,11 +77,11 @@ vim.lsp.handlers['textDocument/signatureHelp'] = vim.lsp.with(vim.lsp.handlers.s
 
 vim.diagnostic.config {
   float = { border = _border },
-  virtual_text = false, -- Disables inline virtual text
-  signs = true, -- Enables signs in the sign column
-  underline = false, -- Disables underlining of text
+  virtual_text = false,     -- Disables inline virtual text
+  signs = true,             -- Enables signs in the sign column
+  underline = false,        -- Disables underlining of text
   update_in_insert = false, -- Avoid updates while typing
-  severity_sort = true, -- Sorts messages by severity
+  severity_sort = true,     -- Sorts messages by severity
 }
 
 -- [[ Basic Keymaps ]]
@@ -168,7 +168,7 @@ require('lazy').setup({
   --    require('Comment').setup({})
 
   -- "gc" to comment visual regions/lines
-  { 'numToStr/Comment.nvim', opts = {} },
+  { 'numToStr/Comment.nvim',    opts = {} },
 
   -- Here is a more advanced example where we pass configuration
   -- options to `gitsigns.nvim`. This is equivalent to the following Lua:
@@ -203,7 +203,7 @@ require('lazy').setup({
   -- after the plugin has been loaded:
   --  config = function() ... end
 
-  { -- Useful plugin to show you pending keybinds.
+  {                     -- Useful plugin to show you pending keybinds.
     'folke/which-key.nvim',
     event = 'VimEnter', -- Sets the loading event to 'VimEnter'
     config = function() -- This is the function that runs, AFTER loading
@@ -255,7 +255,7 @@ require('lazy').setup({
       { 'nvim-telescope/telescope-ui-select.nvim' },
 
       -- Useful for getting pretty icons, but requires a Nerd Font.
-      { 'nvim-tree/nvim-web-devicons', enabled = vim.g.have_nerd_font },
+      { 'nvim-tree/nvim-web-devicons',              enabled = vim.g.have_nerd_font },
       { 'nvim-telescope/telescope-media-files.nvim' },
     },
     config = function()
@@ -355,11 +355,11 @@ require('lazy').setup({
 
       -- Useful status updates for LSP.
       -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
-      { 'j-hui/fidget.nvim', opts = {} },
+      { 'j-hui/fidget.nvim',       opts = {} },
 
       -- `neodev` configures Lua LSP for your Neovim config, runtime and plugins
       -- used for completion, annotations and signatures of Neovim apis
-      { 'folke/neodev.nvim', opts = {} },
+      { 'folke/neodev.nvim',       opts = {} },
     },
     config = function()
       -- Brief aside: **What is LSP?**
@@ -502,7 +502,7 @@ require('lazy').setup({
           filetypes = { 'html', 'templ' },
         },
         html = {
-          filetypes = { 'html', 'templ' },
+          filetypes = { 'html', 'templ', 'jsx', 'tsx' },
         },
         templ = {
           default_config = {
@@ -532,7 +532,9 @@ require('lazy').setup({
           filetypes = { 'templ', 'html', 'javascript', 'typescript', 'react', 'tsx', 'jsx' },
           init_options = { userLanguages = { temp = 'html' } },
         },
-        marksman = {},
+        marksman = {
+          filetypes = {'md', 'markdown'},
+        },
         prisma_ls = {},
 
         --
@@ -570,6 +572,7 @@ require('lazy').setup({
         'htmx',
         'tailwindcss',
         'templ',
+        'marksman',
       })
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
@@ -847,10 +850,10 @@ require('lazy').setup({
       'TmuxNavigatePrevious',
     },
     keys = {
-      { '<c-h>', '<cmd><C-U>TmuxNavigateLeft<cr>' },
-      { '<c-j>', '<cmd><C-U>TmuxNavigateDown<cr>' },
-      { '<c-k>', '<cmd><C-U>TmuxNavigateUp<cr>' },
-      { '<c-l>', '<cmd><C-U>TmuxNavigateRight<cr>' },
+      { '<c-h>',  '<cmd><C-U>TmuxNavigateLeft<cr>' },
+      { '<c-j>',  '<cmd><C-U>TmuxNavigateDown<cr>' },
+      { '<c-k>',  '<cmd><C-U>TmuxNavigateUp<cr>' },
+      { '<c-l>',  '<cmd><C-U>TmuxNavigateRight<cr>' },
       { '<c-\\>', '<cmd><C-U>TmuxNavigatePrevious<cr>' },
     },
   },
@@ -870,6 +873,10 @@ require('lazy').setup({
     'luckasRanarison/tailwind-tools.nvim',
     dependencies = { 'nvim-treesitter/nvim-treesitter' },
     opts = {}, -- your configuration
+  },
+  {
+    "3rd/image.nvim",
+    opts = {}
   },
 
   -- The following two comments only work if you have downloaded the kickstart repo, not just copy pasted the

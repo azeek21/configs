@@ -1,8 +1,7 @@
 # kickstart.nvim
 
 ## Introduction
-
-A starting point for Neovim that is:
+A starting point for Neovim that is
 
 * Small
 * Single-file
