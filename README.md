@@ -6,7 +6,7 @@ Steps
 - build tmux from source (see tmux github)
 - install nvim (github)
 - install omzsh and set zsh as default on omz first launch
-- install nvm (node version manager). [add this config to your .zshrc](#) 
+- install nvm (node version manager). [add nvm script to .zshrc](#zshrc) 
 - install nodejs with nvm `nvm install 22`
 - add `/home/<USERNAME>/.local/kitty.app/bin/kitty -e tmux new-session -A -s main` as startup application. Add shortcut (SUPER+T) for it to [optional]
 - startup kitty with `/home/<USERNAME>/.local/kitty.app/bin/kitty -e tmux new-session -A -s main` or with shourtcut from previous step
@@ -14,12 +14,12 @@ Steps
 - resource tmux config: `tmux source ~/.config/tmux/tmux.conf`
 - Setup "JetbrainsMono Nerd Font". Install font files (ttf) to `~/.local/share/fonts/` and maybe restart system for changes to take effect
 - install `golang, ruby, lua` languages.
+- [optional]: install `ripgrep` to use live grep in neovim with treesitter. No config needed. Just install ripgrep.
 
 > [!NOTE]
-> tmux, kitty, nvim don't isntall from package manager repost. get from github
+> tmux, kitty, nvim don't isntall from package manager repos. get from github
 
-
-## zshrc additions
+## zshrc
 
 Appent do `.zshrc`
 
