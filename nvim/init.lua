@@ -521,19 +521,27 @@ require('lazy').setup({
         --
         -- But for many setups, the LSP (`tsserver`) will work just fine
         --
-        tsserver = {
-          settings = {
-            implicitProjectConfiguration = {
-              checkJs = true,
-            },
-          },
-        },
+        --        tsserver = {
+        --          settings = {
+        --            implicitProjectConfiguration = {
+        --              checkJs = true,
+        --            },
+        --            filetypes = {
+        --              'typescript',
+        --              'typescriptreact',
+        --              'javascript',
+        --              'javascriptreact',
+        --              'tsx',
+        --              'jsx',
+        --            },
+        --          },
+        --        },
         tailwindcss = {
           filetypes = { 'templ', 'html', 'javascript', 'typescript', 'react', 'tsx', 'jsx' },
           init_options = { userLanguages = { temp = 'html' } },
         },
         marksman = {
-          filetypes = {'md', 'markdown'},
+          filetypes = { 'md', 'markdown' },
         },
         prisma_ls = {},
 
@@ -573,6 +581,7 @@ require('lazy').setup({
         'tailwindcss',
         'templ',
         'marksman',
+        'prettier',
       })
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
@@ -582,11 +591,6 @@ require('lazy').setup({
             local server = servers[server_name] or {}
 
             -- This handles overriding only values explicitly passed
-            -- FIXME: they renamed tsserver to ts_ls and this is a temporary fix
-            -- MORE: https://github.com/neovim/nvim-lspconfig/pull/3232#issuecomment-2331025714
-            if server_name == 'tsserver' then
-              server_name = 'ts_ls'
-            end
             -- by the server configuration above. Useful when disabling
             -- certain features of an LSP (for example, turning off formatting for tsserver)
             server.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server.capabilities or {})
@@ -630,7 +634,13 @@ require('lazy').setup({
         --
         -- You can use a sub-list to tell conform to run *until* a formatter
         -- is found.
-        -- javascript = { { "prettierd", "prettier" } },
+        javascript = { { "prettier" } },
+        typescript = { { "prettier" } },
+        typescriptreact = { { "prettier" } },
+        javascriptreact = { { "prettier" } },
+        jsx = { { "prettier" } },
+        tsx = { { "prettier" } },
+        html = { { "prettier" } }
       },
     },
   },
@@ -831,6 +841,11 @@ require('lazy').setup({
     end,
   },
   -- CUSTOM PLUGINS ADED BY ME:
+  {
+    "pmizio/typescript-tools.nvim",
+    dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
+    opts = {},
+  },
   {
     'ray-x/go.nvim',
     config = function()
