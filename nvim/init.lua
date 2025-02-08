@@ -502,7 +502,7 @@ require('lazy').setup({
           filetypes = { 'html', 'templ' },
         },
         html = {
-          filetypes = { 'html', 'templ', 'jsx', 'tsx' },
+          filetypes = { 'html', 'templ', 'jsx', 'tsx', 'twig' },
         },
         templ = {
           default_config = {
